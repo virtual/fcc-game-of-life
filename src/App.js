@@ -13,7 +13,7 @@ class App extends Component {
           <h1 className="App-title">Game of Life</h1>
         </header>
         <main>
-          <Board rows={20} cols={30}/>
+          <Board rows={5} cols={5}/>
           <div className="actions">
             <Start />
             <Reset />
