@@ -38,7 +38,7 @@ class App extends Component {
       cols: cols
     })
   }
-  
+
   componentDidMount() {
     if (this.state.thisBoard === null) {
       this.setupBoard(5,5);
@@ -75,7 +75,7 @@ class App extends Component {
             <h1 className="App-title">Game of Life</h1>
           </header>
           <main>
-            <Board initalized={this.state.initalized} thisBoard={this.state.thisBoard} rows={this.state.rows} cols={this.state.cols} updateAlive={this.updateAlive} />
+            <Board key="board1" initalized={this.state.initalized} thisBoard={this.state.thisBoard} rows={this.state.rows} cols={this.state.cols} updateAlive={this.updateAlive} />
             <div className="actions">
               <Start />
               <Reset />
