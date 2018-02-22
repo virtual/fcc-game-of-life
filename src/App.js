@@ -30,7 +30,23 @@ class App extends Component {
       }
       htmlBoard.push(htmlRow)
     }
-    //console.log('hi', htmlBoard)
+    //console.log(htmlBoard)
+
+    // Some predefined goodness
+    htmlBoard[10][10] = true;
+    htmlBoard[10][8] = true;
+    htmlBoard[9][7] = true;
+    htmlBoard[8][6] = true;
+    htmlBoard[7][7] = true;
+    htmlBoard[7][8] = true;
+    htmlBoard[8][9] = true;
+    htmlBoard[7][10] = true;
+    htmlBoard[7][11] = true;
+    htmlBoard[8][12] = true;
+    htmlBoard[9][11] = true;
+    htmlBoard[10][10] = true;
+    htmlBoard[11][9] = true;
+    // 
 
     this.setState({
       thisBoard: htmlBoard,
