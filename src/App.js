@@ -12,7 +12,8 @@ class App extends Component {
       thisBoard: null,
       rows: 10,
       cols: 10,
-      initalized: false
+      initalized: false,
+      speed: 1000
     }
     this.updateAlive = this.updateAlive.bind(this);
     this.incrementGeneration = this.incrementGeneration.bind(this);
@@ -130,7 +131,7 @@ class App extends Component {
           <main>
             <Board key="board1" initalized={this.state.initalized} thisBoard={this.state.thisBoard} rows={this.state.rows} cols={this.state.cols} updateAlive={this.updateAlive}  />
             <div className="actions">
-              <Start iGen={this.incrementGeneration} />
+              <Start speed={this.state.speed} iGen={this.incrementGeneration} />
               <Reset setupBoard={this.setupBoard} rows={this.state.rows} cols={this.state.cols} />
               Speed slider
             </div>
