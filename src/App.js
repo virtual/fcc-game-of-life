@@ -10,7 +10,6 @@ class App extends Component {
     super();
     this.state = {
       thisBoard: null,
-      nextBoard: null,
       rows: 10,
       cols: 10,
       initalized: false
@@ -47,13 +46,67 @@ class App extends Component {
   
   // Number of alive neighbors adjacent
   getAliveNCount(x,y) {
+    //  (3,4) (3,5) (3,6)
+    //  (4,4) (4,5) (4,6)
+    //  (5,4) (5,5) (5,6)
+
     let neighbors = 0;
-    if (x != 0) {
-      console.log("hey it's not on the border")
+    // (4,5)
+
+    let b = this.state.thisBoard;
+    if (x !== 0) {
+      if (y !== 0) {
+        if (b[x-1][y-1]) { neighbors++}
+      }
+      if (b[x-1][y]) { neighbors++}
+      if (y !== b[x].length - 1) {
+        if (b[x-1][y+1]) { neighbors++}
+      }
     }
+   
+    if (y !== 0) {
+      if (b[x][y-1]) { neighbors++}
+    } 
+    if (b[x][y]) { neighbors++}
+    if (y !== b[x].length - 1) {
+      if (b[x][y+1]) { neighbors++}
+    }
+    if (x !== b.length - 1) {
+      if (y !== 0) {
+        if (b[x+1][y-1]) { neighbors++}
+      }
+      if (b[x+1][y]) { neighbors++}
+      if (y !== b[x].length - 1) {
+        if (b[x+1][y+1]) { neighbors++}
+      }
+    }
+    console.log(x,y,neighbors)
+    return neighbors;
+
   }
   incrementGeneration(){
-    this.getAliveNCount(1,1)
+    // this.getAliveNCount(1,1)
+    let htmlBoard = [];
+    for (var i = 0; i < this.state.rows; i++) {
+      let htmlRow = [];
+      for (var h = 0; h < this.state.cols; h++) {
+        let neighbors = this.getAliveNCount(i,h);
+        if (neighbors < 4) { 
+          if (neighbors > 2) {
+          htmlRow.push(true);
+          }else {
+            htmlRow.push(false)
+          }
+        } else {
+          htmlRow.push(false)
+        }
+      }
+      htmlBoard.push(htmlRow)
+    }
+    this.setState({
+      thisBoard: htmlBoard
+    })
+    console.log(htmlBoard)
   }
   updateAlive(a, b) {
     let updateAlive = this.state.thisBoard;
@@ -75,10 +128,10 @@ class App extends Component {
             <h1 className="App-title">Game of Life</h1>
           </header>
           <main>
-            <Board key="board1" initalized={this.state.initalized} thisBoard={this.state.thisBoard} rows={this.state.rows} cols={this.state.cols} updateAlive={this.updateAlive} />
+            <Board key="board1" initalized={this.state.initalized} thisBoard={this.state.thisBoard} rows={this.state.rows} cols={this.state.cols} updateAlive={this.updateAlive}  />
             <div className="actions">
-              <Start />
-              <Reset />
+              <Start iGen={this.incrementGeneration} />
+              <Reset setupBoard={this.setupBoard} rows={this.state.rows} cols={this.state.cols} />
               Speed slider
             </div>
           </main>
