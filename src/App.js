@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Board from './Grid/Board';
 import Start from './Action/Start';
@@ -14,7 +13,7 @@ class App extends Component {
       rows: 10,
       cols: 10,
       initalized: false,
-      speed: 100
+      speed: 1000
     }
     this.updateAlive = this.updateAlive.bind(this);
     this.incrementGeneration = this.incrementGeneration.bind(this);
@@ -43,7 +42,7 @@ class App extends Component {
 
   componentDidMount() {
     if (this.state.thisBoard === null) {
-      this.setupBoard(5,5);
+      this.setupBoard(20,20);
     }
   }
   
@@ -70,7 +69,7 @@ class App extends Component {
     if (y !== 0) {
       if (b[x][y-1]) { neighbors++}
     } 
-    if (b[x][y]) { neighbors++}
+    
     if (y !== b[x].length - 1) {
       if (b[x][y+1]) { neighbors++}
     }
@@ -83,7 +82,7 @@ class App extends Component {
         if (b[x+1][y+1]) { neighbors++}
       }
     }
-    //console.log(x,y,neighbors)
+    console.log(x,y,neighbors)
     return neighbors;
 
   }
@@ -94,15 +93,32 @@ class App extends Component {
       let htmlRow = [];
       for (var h = 0; h < this.state.cols; h++) {
         let neighbors = this.getAliveNCount(i,h);
-        if (neighbors < 4) { 
-          if (neighbors > 2) {
-          htmlRow.push(true);
-          }else {
+        
+        /*
+        If a square has X number of neighbors (inc self), the result:
+
+        1: The square dies from isolation (becomes empty)
+        3: A new square is born (filled in)
+        4+: The square dies from suffocation (becomes empty)
+ 
+        */
+        if (this.state.thisBoard[i][h]) { // current spot alive
+          if (neighbors > 2) { 
+            htmlRow.push(false)
+          } else if (neighbors === 1 || neighbors === 2) {
+            htmlRow.push(true);
+          } else {
             htmlRow.push(false)
           }
-        } else {
-          htmlRow.push(false)
+        } else { // current spot is dead
+          if (neighbors === 3) { 
+            htmlRow.push(true);
+          } else {
+            htmlRow.push(false)
+          }
         }
+
+        
       }
       htmlBoard.push(htmlRow)
     }

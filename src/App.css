@@ -2,7 +2,7 @@
 html, body { background: rgb(51, 31, 63);}
 header, main { max-width: 600px; width:100%; margin: 0 auto; color:#fff;}
 .board { border: 1px solid #ccc; margin: 0 auto; }
-.square-alive, .square-dead { cursor:pointer;   border: 1px solid #585858;  width: 20px; height: 50px; background:#ccc; line-height: 0; float:left;}
+.square-alive, .square-dead { cursor:pointer;   border: 1px solid #585858;  width: 20px; height: 20px; background:#ccc; line-height: 0; float:left;}
 br { clear:both; display:block; line-height: 0; height: 0;}
 .square-alive { background: #face8d;}
 .actions { text-align: center;}
