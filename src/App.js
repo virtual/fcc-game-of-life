@@ -4,6 +4,7 @@ import './App.css';
 import Board from './Grid/Board';
 import Start from './Action/Start';
 import Reset from './Action/Reset';
+import Speed from './Action/Speed';
 
 class App extends Component {
   constructor() {
@@ -13,12 +14,13 @@ class App extends Component {
       rows: 10,
       cols: 10,
       initalized: false,
-      speed: 1000
+      speed: 100
     }
     this.updateAlive = this.updateAlive.bind(this);
     this.incrementGeneration = this.incrementGeneration.bind(this);
     this.getAliveNCount = this.getAliveNCount.bind(this);
     this.setupBoard = this.setupBoard.bind(this);
+    this.changeSpeed = this.changeSpeed.bind(this);
   }
   setupBoard(rows,cols) {
     let htmlBoard = [];
@@ -29,7 +31,7 @@ class App extends Component {
       }
       htmlBoard.push(htmlRow)
     }
-    console.log('hi', htmlBoard)
+    //console.log('hi', htmlBoard)
 
     this.setState({
       thisBoard: htmlBoard,
@@ -81,7 +83,7 @@ class App extends Component {
         if (b[x+1][y+1]) { neighbors++}
       }
     }
-    console.log(x,y,neighbors)
+    //console.log(x,y,neighbors)
     return neighbors;
 
   }
@@ -121,6 +123,12 @@ class App extends Component {
       thisBoard: updateAlive 
     })
   }
+  changeSpeed(speed) {
+    console.log('set',speed)
+    this.setState({
+      speed: speed
+    })
+  }
   render() {
     if (this.state.initalized){
       return (
@@ -133,7 +141,7 @@ class App extends Component {
             <div className="actions">
               <Start speed={this.state.speed} iGen={this.incrementGeneration} />
               <Reset setupBoard={this.setupBoard} rows={this.state.rows} cols={this.state.cols} />
-              Speed slider
+              <Speed speed={this.state.speed} changeSpeed={this.changeSpeed} />
             </div>
           </main>
         </div>
