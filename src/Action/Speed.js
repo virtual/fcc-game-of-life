@@ -5,12 +5,18 @@ export default class Speed extends Component {
     super();
     this.handleClick = this.handleClick.bind(this);
   } 
-  handleClick() {
-    this.props.changeSpeed(this.props.speed + 100);
+  handleClick(e) {
+    this.props.changeSpeed(e.target.value);
   }
   render() {
     return (
-      <button onClick={this.handleClick}>{this.props.speed}</button>
+      <div>
+         - Slower
+        <input onChange={this.handleClick} 
+        type="range" min="10" max="1000" style={{direction: 'rtl'}} value={this.props.speed} className="slider" id="myRange"
+        />
+        + Faster
+      </div>
     );
   }
 }

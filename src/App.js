@@ -5,7 +5,7 @@ import Start from './Action/Start';
 import Reset from './Action/Reset';
 import Speed from './Action/Speed';
 
-class App extends Component {
+export default class App extends Component {
   constructor() {
     super();
     this.state = {
@@ -13,7 +13,8 @@ class App extends Component {
       rows: 10,
       cols: 10,
       initalized: false,
-      speed: 1000
+      speed: 300,
+      generation: 0
     }
     this.updateAlive = this.updateAlive.bind(this);
     this.incrementGeneration = this.incrementGeneration.bind(this);
@@ -33,19 +34,43 @@ class App extends Component {
     //console.log(htmlBoard)
 
     // Some predefined goodness
-    htmlBoard[10][10] = true;
-    htmlBoard[10][8] = true;
-    htmlBoard[9][7] = true;
-    htmlBoard[8][6] = true;
-    htmlBoard[7][7] = true;
-    htmlBoard[7][8] = true;
-    htmlBoard[8][9] = true;
-    htmlBoard[7][10] = true;
+    htmlBoard[7][1] = true;
+    htmlBoard[8][1] = true;
+    htmlBoard[7][2] = true;
+    htmlBoard[8][2] = true;
     htmlBoard[7][11] = true;
-    htmlBoard[8][12] = true;
+    htmlBoard[8][11] = true;
     htmlBoard[9][11] = true;
-    htmlBoard[10][10] = true;
-    htmlBoard[11][9] = true;
+    htmlBoard[6][12] = true;
+    htmlBoard[5][13] = true;
+    htmlBoard[5][14] = true;
+    htmlBoard[10][12] = true;
+    htmlBoard[11][13] = true;
+    htmlBoard[11][14] = true;
+    htmlBoard[10][16] = true;
+    htmlBoard[8][15] = true;
+    htmlBoard[6][16] = true;
+    htmlBoard[7][17] = true;
+    htmlBoard[8][17] = true;
+    htmlBoard[9][17] = true;
+    htmlBoard[8][18] = true;
+    htmlBoard[7][21] = true;
+    htmlBoard[6][21] = true;
+    htmlBoard[5][21] = true;
+    htmlBoard[7][22] = true;
+    htmlBoard[6][22] = true;
+    htmlBoard[5][22] = true;
+    htmlBoard[4][23] = true;
+    htmlBoard[8][23] = true;
+    htmlBoard[4][25] = true;
+    htmlBoard[3][25] = true;
+    htmlBoard[8][25] = true;
+    htmlBoard[9][25] = true;
+    htmlBoard[6][35] = true;
+    htmlBoard[5][35] = true;
+    htmlBoard[5][36] = true;
+    htmlBoard[6][36] = true;
+
     // 
 
     this.setState({
@@ -58,7 +83,7 @@ class App extends Component {
 
   componentDidMount() {
     if (this.state.thisBoard === null) {
-      this.setupBoard(20,20);
+      this.setupBoard(20,38);
     }
   }
   
@@ -98,12 +123,10 @@ class App extends Component {
         if (b[x+1][y+1]) { neighbors++}
       }
     }
-    console.log(x,y,neighbors)
+    //console.log(x,y,neighbors)
     return neighbors;
-
   }
   incrementGeneration(){
-    // this.getAliveNCount(1,1)
     let htmlBoard = [];
     for (var i = 0; i < this.state.rows; i++) {
       let htmlRow = [];
@@ -111,12 +134,10 @@ class App extends Component {
         let neighbors = this.getAliveNCount(i,h);
         
         /*
- 
         Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
         Any live cell with two or three live neighbours lives on to the next generation.
         Any live cell with more than three live neighbours dies, as if by overpopulation.
         Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
- 
         */
         if (this.state.thisBoard[i][h]) { // current spot alive
           if (neighbors < 2) { 
@@ -136,25 +157,25 @@ class App extends Component {
       }
       htmlBoard.push(htmlRow)
     }
+    let gen = this.state.generation + 1;
     this.setState({
-      thisBoard: htmlBoard
+      thisBoard: htmlBoard,
+      generation: gen
     })
-    console.log(htmlBoard)
   }
   updateAlive(a, b) {
+    console.log(a,b)
     let updateAlive = this.state.thisBoard;
     if (updateAlive[a][b]) {
       updateAlive[a][b] = false
     } else {
       updateAlive[a][b] = true;
     }
-    console.log("setting",a,b,updateAlive[a][b]);
     this.setState({
       thisBoard: updateAlive 
     })
   }
   changeSpeed(speed) {
-    console.log('set',speed)
     this.setState({
       speed: speed
     })
@@ -169,6 +190,7 @@ class App extends Component {
           <main>
             <Board key="board1" initalized={this.state.initalized} thisBoard={this.state.thisBoard} rows={this.state.rows} cols={this.state.cols} updateAlive={this.updateAlive}  />
             <div className="actions">
+            {this.state.generation}
               <Start speed={this.state.speed} iGen={this.incrementGeneration} />
               <Reset setupBoard={this.setupBoard} rows={this.state.rows} cols={this.state.cols} />
               <Speed speed={this.state.speed} changeSpeed={this.changeSpeed} />
@@ -181,5 +203,3 @@ class App extends Component {
     }
   }
 }
-
-export default App;

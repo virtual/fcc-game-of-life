@@ -11,21 +11,14 @@ export default class Start extends Component {
     this.increment = this.increment.bind(this);
   }
   increment() {
- 
-        //this.props.iGen();
-        this.setState({
-          buttonText: 'Stop',
-          interval: setInterval(() => {
-            console.log('run')
-            this.props.iGen();
-          }, this.props.speed)
-        
-        });
-
-    
+    this.setState({
+      buttonText: 'Stop',
+      interval: setInterval(() => {
+        this.props.iGen();
+      }, this.props.speed)
+    });
   }
   stop() {
-    console.log('clear')
     clearInterval(this.state.interval);
     this.setState({
       buttonText: 'Start'       
