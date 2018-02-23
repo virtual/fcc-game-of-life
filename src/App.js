@@ -116,12 +116,18 @@ class App extends Component {
         1: The square dies from isolation (becomes empty)
         3: A new square is born (filled in)
         4+: The square dies from suffocation (becomes empty)
+
+        Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+        Any live cell with two or three live neighbours lives on to the next generation.
+        Any live cell with more than three live neighbours dies, as if by overpopulation.
+        Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+
  
         */
         if (this.state.thisBoard[i][h]) { // current spot alive
-          if (neighbors > 2) { 
+          if (neighbors < 2) { 
             htmlRow.push(false)
-          } else if (neighbors === 1 || neighbors === 2) {
+          } else if (neighbors === 2 || neighbors === 3) {
             htmlRow.push(true);
           } else {
             htmlRow.push(false)
