@@ -24,7 +24,7 @@ export default class App extends Component {
     this.changeSpeed = this.changeSpeed.bind(this);
   }
   setupBoard(rows, cols, type) {
-    let version = 'gun';
+    let version = (Math.random() > .5) ? 'gun' : 'heart'; 
     if (type) { version = type }
     let htmlBoard = [];
     for (var i = 0; i < rows; i++) {

@@ -10,6 +10,9 @@ export default class Start extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.increment = this.increment.bind(this);
   }
+  componentDidMount() {
+    this.increment();
+  }
   increment() {
  
         //this.props.iGen();
