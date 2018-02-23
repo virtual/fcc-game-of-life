@@ -11,11 +11,12 @@ export default class Speed extends Component {
   render() {
     return (
       <div>
-         - Slower
+        <label className="sr-only" htmlFor="speedSlider">Speed</label>
+        &minus;
         <input onChange={this.handleClick} 
-        type="range" min="10" max="1000" style={{direction: 'rtl'}} value={this.props.speed} className="slider" id="myRange"
+        type="range" min="10" max="1000" style={{direction: 'rtl'}} value={this.props.speed} className="slider" id="speedSlider"
         />
-        + Faster
+        +
       </div>
     );
   }

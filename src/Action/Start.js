@@ -11,14 +11,21 @@ export default class Start extends Component {
     this.increment = this.increment.bind(this);
   }
   increment() {
-    this.setState({
-      buttonText: 'Stop',
-      interval: setInterval(() => {
-        this.props.iGen();
-      }, this.props.speed)
-    });
+ 
+        //this.props.iGen();
+        this.setState({
+          buttonText: 'Stop',
+          interval: setInterval(() => {
+            console.log('run')
+            this.props.iGen();
+          }, this.props.speed)
+        
+        });
+
+    
   }
   stop() {
+    console.log('clear')
     clearInterval(this.state.interval);
     this.setState({
       buttonText: 'Start'       
@@ -33,7 +40,7 @@ export default class Start extends Component {
   }
   render() {
     return (
-      <button onClick={this.handleClick}>{this.state.buttonText}</button>
+      <button className="btnStart" onClick={this.handleClick}>{this.state.buttonText}</button>
     );
   }
 }

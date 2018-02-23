@@ -4,6 +4,7 @@ import Board from './Grid/Board';
 import Start from './Action/Start';
 import Reset from './Action/Reset';
 import Speed from './Action/Speed';
+import Clear from './Action/Clear';
 
 export default class App extends Component {
   constructor() {
@@ -22,7 +23,9 @@ export default class App extends Component {
     this.setupBoard = this.setupBoard.bind(this);
     this.changeSpeed = this.changeSpeed.bind(this);
   }
-  setupBoard(rows,cols) {
+  setupBoard(rows, cols, type) {
+    let version = 'gun';
+    if (type) { version = type }
     let htmlBoard = [];
     for (var i = 0; i < rows; i++) {
       let htmlRow = [];
@@ -34,6 +37,7 @@ export default class App extends Component {
     //console.log(htmlBoard)
 
     // Some predefined goodness
+    if (version === 'gun') {
     htmlBoard[7][1] = true;
     htmlBoard[8][1] = true;
     htmlBoard[7][2] = true;
@@ -70,7 +74,23 @@ export default class App extends Component {
     htmlBoard[5][35] = true;
     htmlBoard[5][36] = true;
     htmlBoard[6][36] = true;
-
+  } else if (version === 'heart') {
+    htmlBoard[10][10] = true;
+    htmlBoard[10][8] = true;
+    htmlBoard[9][7] = true;
+    htmlBoard[8][6] = true;
+    htmlBoard[7][7] = true;
+    htmlBoard[7][8] = true;
+    htmlBoard[8][9] = true;
+    htmlBoard[7][10] = true;
+    htmlBoard[7][11] = true;
+    htmlBoard[8][12] = true;
+    htmlBoard[9][11] = true;
+    htmlBoard[10][10] = true;
+    htmlBoard[11][9] = true;
+  } else {
+    console.log(version)
+  }
     // 
 
     this.setState({
@@ -83,7 +103,7 @@ export default class App extends Component {
 
   componentDidMount() {
     if (this.state.thisBoard === null) {
-      this.setupBoard(20,38);
+      this.setupBoard(30,38);
     }
   }
   
@@ -188,12 +208,19 @@ export default class App extends Component {
             <h1 className="App-title">Game of Life</h1>
           </header>
           <main>
-            <Board key="board1" initalized={this.state.initalized} thisBoard={this.state.thisBoard} rows={this.state.rows} cols={this.state.cols} updateAlive={this.updateAlive}  />
-            <div className="actions">
-            {this.state.generation}
+            <div className="button-action actions">
               <Start speed={this.state.speed} iGen={this.incrementGeneration} />
               <Reset setupBoard={this.setupBoard} rows={this.state.rows} cols={this.state.cols} />
-              <Speed speed={this.state.speed} changeSpeed={this.changeSpeed} />
+              </div>
+            <p className="gen">Generation: {this.state.generation}</p>
+            <Board key="board1" initalized={this.state.initalized} thisBoard={this.state.thisBoard} rows={this.state.rows} cols={this.state.cols} updateAlive={this.updateAlive}  />
+            <div className="actions clear-action">
+            
+              
+              <Clear setupBoard={this.setupBoard} rows={this.state.rows} cols={this.state.cols} />
+            </div>
+            <div class="slider-action">
+            <Speed speed={this.state.speed} changeSpeed={this.changeSpeed} />            
             </div>
           </main>
         </div>
