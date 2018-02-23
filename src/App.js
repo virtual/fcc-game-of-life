@@ -111,17 +111,11 @@ class App extends Component {
         let neighbors = this.getAliveNCount(i,h);
         
         /*
-        If a square has X number of neighbors (inc self), the result:
-
-        1: The square dies from isolation (becomes empty)
-        3: A new square is born (filled in)
-        4+: The square dies from suffocation (becomes empty)
-
+ 
         Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
         Any live cell with two or three live neighbours lives on to the next generation.
         Any live cell with more than three live neighbours dies, as if by overpopulation.
         Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
-
  
         */
         if (this.state.thisBoard[i][h]) { // current spot alive
@@ -139,8 +133,6 @@ class App extends Component {
             htmlRow.push(false)
           }
         }
-
-        
       }
       htmlBoard.push(htmlRow)
     }
