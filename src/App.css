@@ -4,7 +4,7 @@ header, main { max-width: 960px; width:100%; margin: 0 auto; color:#fff;}
 .board { border: 1px solid #222; margin: 0 auto; clear:both;display:block;margin-top: 10px; }
 .square-alive, .square-dead { border-collapse: collapse; cursor:pointer;   border: 1px solid #222;  width: 20px; height: 15px; background: rgba(51, 51, 51, 1); line-height: 0; float:left;}
 br { clear:both; display:block; line-height: 0; height: 0;}
-.square-alive { background: #e1e1e121;}
+.square-alive { background: rgba(225, 225, 225, 0.13);}
 .actions { text-align: center;}
 .actions button { cursor: pointer; padding: 5px 8px; font-size: 1rem;margin: 5px;}
 h1 { font-weight: 300; font-family: 'Bellefair', serif; text-align: center;color:rgb(185, 93, 238); margin: 0;}
