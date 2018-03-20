@@ -1,6 +1,6 @@
 # Game of Life - freeCodeCamp challenge
 
-View [demo](https://fcc-game-of-life.herokuapp.com/)
+View [Game of Life app](https://virtual.github.io/fcc-game-of-life/)
 
 ## Rules (B3/S23)
 
